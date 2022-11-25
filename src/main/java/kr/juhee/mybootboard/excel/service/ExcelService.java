@@ -56,7 +56,7 @@ public class ExcelService {
             cell = row.createCell(cellNum++);
             cell.setCellValue(board.getContent());
             cell = row.createCell(cellNum++);
-            cell.setCellValue(String.format(board.getCreateDate().toString()));
+            cell.setCellValue(String.format(board.getCreateDate().toString())); //date 타입 밀리세컨으로 떠서 변환
             cell = row.createCell(cellNum++);
             cell.setCellValue(board.getTitle());
             cell = row.createCell(cellNum++);

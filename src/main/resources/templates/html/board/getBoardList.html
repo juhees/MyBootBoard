@@ -11,16 +11,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <h1>게시글 목록</h1>
 
 <span sec:authorize="isAuthenticated()">
-	<b><font color="red">
+	<b><font color="green">
 	<span sec:authentication="principal.member.name"></span>
-	</font></b> 님 환영합니다.............................
+	</font></b> 님 환영합니다............................................................................................................................
 	<a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;
 	<a th:href="@{/admin/adminPage}">게시판관리</a>
 </span>
 
 <hr>
 <!-- 검색 시작 -->
-<form th:action="@{/board/getBoardList}" method="post"><table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+<form th:action="@{/board/getBoardList}" method="post"><table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="750">
 <tr>
     <td align="right">
         <select name="searchCondition">

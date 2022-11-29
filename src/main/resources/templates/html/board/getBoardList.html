@@ -5,6 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>게시글 목록</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="/css/page.css">
 </head>
 
 <body th:align="center">
@@ -55,6 +56,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </tr>
 
 </table>
+
+<ul><!-- 페이징 나타나는 부분 -->
+   <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}">
+       <a th:href="@{/board/getBoardList(page=${pageStat.index},searchKeyword=${search.getSearchKeyword()},
+       searchCategory=${search.getSearchCondition()})}"  th:text="${pageStat.index + 1}"></a>
+   </li>
+</ul>
+
 <br>
 <a th:href="@{/board/insertBoard}">게시글 등록</a>
 <a th:href="@{/download}">엑셀 다운로드</a>

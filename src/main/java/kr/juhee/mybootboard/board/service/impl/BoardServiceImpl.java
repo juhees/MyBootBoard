@@ -57,11 +57,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(search.getSearchCondition().equals("TITLE")) {
 		      builder.and(qboard.title.like("%" + search.getSearchKeyword() + "%"));
+		      builder.and(qboard.category.like("%" + search.getSearchKeyword() + "%")); //카테고리별
+		      
 		} else if(search.getSearchCondition().equals("CONTENT")) {
 		      builder.and(qboard.content.like("%" + search.getSearchKeyword() + "%"));
+		      builder.and(qboard.category.like("%" + search.getSearchKeyword() + "%"));
 		}		
 		
-		Pageable pageable = PageRequest.of(0, 10, Sort.Direction.DESC, "seq");
+		Pageable pageable = PageRequest.of(search.getPage(), 10, Sort.Direction.DESC, "seq");
 		
 		return boardRepo.findAll(builder, pageable);
 	}

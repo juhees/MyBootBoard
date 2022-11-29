@@ -32,6 +32,8 @@ public class BoardController {
 			search.setSearchKeyword("");
 		Page<Board> boardList = boardService.getBoardList(search);
 		model.addAttribute("boardList", boardList);
+		int totalPage = boardList.getTotalPages(); 
+		model.addAttribute("totalPage",totalPage);//전체 페이지 수
 		return "/board/getBoardList";
 	}
 	

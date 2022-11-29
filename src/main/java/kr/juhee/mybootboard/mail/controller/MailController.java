@@ -1,4 +1,4 @@
-package kr.juhee.mybootboard.board.controller;
+package kr.juhee.mybootboard.mail.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.juhee.mybootboard.board.entity.Board;
-import kr.juhee.mybootboard.board.entity.MailDto;
 import kr.juhee.mybootboard.board.service.BoardService;
-import kr.juhee.mybootboard.board.service.MailService;
 import kr.juhee.mybootboard.domain.Search;
+import kr.juhee.mybootboard.mail.dto.MailDto;
+import kr.juhee.mybootboard.mail.service.MailService;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -36,6 +36,6 @@ public class MailController {
 		Page<Board> boardList = boardService.getBoardList(search);
 		model.addAttribute("boardList", boardList);
         mailService.mailSend(mailDto);
-        return "/board/getBoardList";
+        return "redirect:/board/getBoardList";
     }
 }

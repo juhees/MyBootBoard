@@ -1,11 +1,11 @@
-package kr.juhee.mybootboard.board.service;
+package kr.juhee.mybootboard.mail.service;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import kr.juhee.mybootboard.board.entity.Board;
-import kr.juhee.mybootboard.board.entity.MailDto;
+import kr.juhee.mybootboard.mail.dto.MailDto;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 public class MailService {
 	
     private JavaMailSender mailSender;
+    
     private static final String FROM_ADDRESS = "juheenew@gmail.com";
 
     public void mailSend(MailDto mailDto) {

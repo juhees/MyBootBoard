@@ -7,5 +7,5 @@ public class Search {
 	
 	private String searchCondition;
 	private String searchKeyword;
-	private int page;
+	private int page; //페이징
 }

@@ -71,14 +71,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> getExcelList() {
-		
 		return (List<Board>) boardRepo.findAll();
 	}
 	
 	
-	
-
-}
+}//class
 
 
 

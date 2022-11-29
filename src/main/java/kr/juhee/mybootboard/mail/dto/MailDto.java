@@ -1,4 +1,4 @@
-package kr.juhee.mybootboard.board.entity;
+package kr.juhee.mybootboard.mail.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

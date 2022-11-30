@@ -29,6 +29,8 @@ import kr.juhee.mybootboard.board.service.BoardService;
 import kr.juhee.mybootboard.domain.Search;
 import kr.juhee.mybootboard.file.entity.FileEntity;
 import kr.juhee.mybootboard.file.service.FileService;
+import kr.juhee.mybootboard.reply.entity.Reply;
+import kr.juhee.mybootboard.reply.service.ReplyService;
 
 
 @Controller
@@ -42,6 +44,9 @@ public class BoardController {
 	@Autowired
 	private FileService fileService;
 	
+	@Autowired
+	private ReplyService replyService;
+	
 	
 	//getBoardList.html 페이지에서 검색 결과를 사용할 수 있도록 Model에 검색한 글 목록 보여줌
 	@RequestMapping("/getBoardList")
@@ -50,21 +55,47 @@ public class BoardController {
 			search.setSearchCondition("TITLE");
 		if (search.getSearchKeyword() == null)
 			search.setSearchKeyword("");
-		Page<Board> boardList = boardService.getBoardList(search);
+		if(search.getSearchCategory()==null)
+			search.setSearchCategory("");
+		
+		int currentPage=search.getPage();
+		
+		Page<Board> boardList = boardService.getBoardList(search, currentPage);
+		
+		if(boardList.getNumberOfElements()==0) {
+			search.setPage(1);
+		}else {
+			search.setPage(boardList.getTotalPages());
+		}
+		
 		model.addAttribute("boardList", boardList);
 		int totalPage = boardList.getTotalPages(); 
 		model.addAttribute("totalPage",totalPage);//전체 페이지 수
+		model.addAttribute("search", search);
 		return "/board/getBoardList";
 	}
 	
 	//제목 클릭시 게시 글 상세 화면 제공 메소드
 	@GetMapping("/getBoard")
-	public String getBoard(Board board, Model model) {
+	public String getBoard(Board board, Model model, Search search, @AuthenticationPrincipal SecurityUser principal) {
 		
+		int currentPage = search.getPage();
 		List<FileEntity> files=fileService.fileAllView(board.getSeq());
+		//reply
+		Page<Reply> replyList = replyService.getReplyList(board.getSeq(),currentPage);
+		
+		if(replyList.getNumberOfElements() ==0) {
+			search.setPage(1);
+		}else {
+			search.setPage(replyList.getTotalPages());
+		}
 		
 		model.addAttribute("board", boardService.getBoard(board));
 		model.addAttribute("all",files);
+		//reply
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("searchResult",search);
+		
 		return "/board/getBoard";
 	}
 	

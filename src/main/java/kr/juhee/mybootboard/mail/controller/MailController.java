@@ -33,8 +33,23 @@ public class MailController {
 			search.setSearchCondition("TITLE");
 		if (search.getSearchKeyword() == null)
 			search.setSearchKeyword("");
-		Page<Board> boardList = boardService.getBoardList(search);
+		if(search.getSearchCategory()==null)
+			search.setSearchCategory("");
+		
+		int currentPage=search.getPage();
+		
+		Page<Board> boardList = boardService.getBoardList(search, currentPage);
+		
+		if(boardList.getNumberOfElements()==0) {
+			search.setPage(1);
+		}else {
+			search.setPage(boardList.getTotalPages());
+		}
+		
 		model.addAttribute("boardList", boardList);
+		int totalPage = boardList.getTotalPages(); 
+		model.addAttribute("totalPage",totalPage);//전체 페이지 수
+		model.addAttribute("search", search);
         mailService.mailSend(mailDto);
         return "redirect:/board/getBoardList";
     }

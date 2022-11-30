@@ -36,6 +36,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final kr.juhee.mybootboard.member.entity.QMember member;
 
+    public final ListPath<kr.juhee.mybootboard.reply.entity.Reply, kr.juhee.mybootboard.reply.entity.QReply> reply = this.<kr.juhee.mybootboard.reply.entity.Reply, kr.juhee.mybootboard.reply.entity.QReply>createList("reply", kr.juhee.mybootboard.reply.entity.Reply.class, kr.juhee.mybootboard.reply.entity.QReply.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public final StringPath title = createString("title");

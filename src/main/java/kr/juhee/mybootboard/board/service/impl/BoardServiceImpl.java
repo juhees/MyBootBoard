@@ -46,22 +46,27 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board getBoard(Board board) {
-		return boardRepo.findById(board.getSeq()).get();
+		//조회수 증가 
+		Board findBoard = boardRepo.findById(board.getSeq()).get();
+		findBoard.setCnt(findBoard.getCnt()+1);
+		boardRepo.save(findBoard);
+		//
+		return findBoard;
 	}
 
 	@Override
-	public Page<Board> getBoardList(Search search) {		
+	public Page<Board> getBoardList(Search search, int page) {		
 		BooleanBuilder builder = new BooleanBuilder();
 		
 		QBoard qboard = QBoard.board;
 		
 		if(search.getSearchCondition().equals("TITLE")) {
-		      builder.and(qboard.title.like("%" + search.getSearchKeyword() + "%"));
-		      builder.and(qboard.category.like("%" + search.getSearchKeyword() + "%")); //카테고리별
+		     builder.and(qboard.title.like("%" + search.getSearchKeyword() + "%"));
+		      builder.and(qboard.category.like("%" + search.getSearchCategory() + "%")); //카테고리별
 		      
 		} else if(search.getSearchCondition().equals("CONTENT")) {
 		      builder.and(qboard.content.like("%" + search.getSearchKeyword() + "%"));
-		      builder.and(qboard.category.like("%" + search.getSearchKeyword() + "%"));
+		      builder.and(qboard.category.like("%" + search.getSearchCategory() + "%"));
 		}		
 		
 		Pageable pageable = PageRequest.of(search.getPage(), 10, Sort.Direction.DESC, "seq");

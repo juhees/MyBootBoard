@@ -12,6 +12,8 @@ import kr.juhee.mybootboard.board.repository.BoardRepository;
 import kr.juhee.mybootboard.domain.Role;
 import kr.juhee.mybootboard.member.entity.Member;
 import kr.juhee.mybootboard.member.repository.MemberRepository;
+import kr.juhee.mybootboard.reply.entity.Reply;
+import kr.juhee.mybootboard.reply.repository.ReplyRepository;
 import lombok.extern.log4j.Log4j2;
 
 @RunWith(SpringRunner.class)
@@ -28,8 +30,11 @@ public class BoardRepositoryTest {
 	@Autowired
 	private PasswordEncoder encoder;
 	
+	@Autowired
+	private ReplyRepository replyRepository;
+	
 	//데이터 등록 기능 메소드
-	@Test
+	//@Test
 	public void testInsert() {
 		
 		Member member1 = new Member(
@@ -83,6 +88,20 @@ public class BoardRepositoryTest {
 		}
 	}
 	
+	
+	@Test
+	public void testreply() {
+		Reply reply = new Reply();
+		Board board = new Board();
+		board.setSeq(1L);
+		Member member = new Member();
+		member.setId("asdf");
+		reply.setBoard(board);
+		reply.setContent("dsfdf");
+		reply.setMember(member);
+		
+		replyRepository.save(reply);
+	}
 	
 
 }//class

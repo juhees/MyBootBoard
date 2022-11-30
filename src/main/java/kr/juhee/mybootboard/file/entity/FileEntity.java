@@ -31,7 +31,7 @@ public class FileEntity {
 	
 	private String orgName;
 	
-	private String savedName;
+	private String savedName; 
 	
 	private String savedPath;
 	
@@ -43,7 +43,7 @@ public class FileEntity {
 		this.board = board;
 		board.getFileList().add(this);
 	}
-
+	
 	@Builder
 	public FileEntity(Long id, String orgName, String savedName, String savedPath) {
 		this.id=id;

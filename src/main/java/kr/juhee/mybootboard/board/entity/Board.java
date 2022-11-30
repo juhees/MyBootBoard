@@ -17,12 +17,13 @@ import javax.persistence.TemporalType;
 
 import kr.juhee.mybootboard.file.entity.FileEntity;
 import kr.juhee.mybootboard.member.entity.Member;
+import kr.juhee.mybootboard.reply.entity.Reply;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @Entity
-@ToString(exclude = {"member", "fileList"}) //Member와의 순환 참조를 해결하기 위해 member 변수 제외
+@ToString(exclude = {"member", "fileList","reply"}) //Member와의 순환 참조를 해결하기 위해 member 변수 제외
 public class Board {
 	
 	public Board() {
@@ -50,7 +51,7 @@ public class Board {
 	//insertable : SQL INSERT문에 해당 컬럼을 포함할지 여부, updatable : SQL UPDATE문에 해당 컬럼을 포함할지 여부
 	//날짜기본형식 time, day, month, year 형태저장
 	
-	@Column(updatable=false)
+	@Column(columnDefinition = "number default 0")
 	private Long cnt = 0L;
 	
 	@Column
@@ -72,5 +73,8 @@ public class Board {
 		
 	}
 	
+	//reply
+	@OneToMany(mappedBy = "board", cascade=CascadeType.ALL)
+	private List<Reply> reply = new ArrayList<Reply>();
 	
-}
+}//class

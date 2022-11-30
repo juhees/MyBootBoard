@@ -17,7 +17,7 @@ public interface BoardService {
 	
 	Board getBoard(Board board);
 	
-	Page<Board> getBoardList(Search search);
+	Page<Board> getBoardList(Search search, int page);
 	
 	//엑셀
 	List<Board> getExcelList();

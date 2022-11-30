@@ -8,7 +8,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body th:align="center">
 <h1>게시글 등록</h1>
-<form th:action="@{/board/insertBoard}" method="post">
+<form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data">
 <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">				
 	<tr>
 		<td bgcolor="orange" th:text="제목" width="80"></td>
@@ -33,6 +33,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<td bgcolor="orange" th:text="내용">
 		<td><textarea name="content" cols="50" rows="10"></textarea></td>
 	</tr>
+	
+	<tr><!-- 파일 업로드 -->
+            <td colspan="2" align="center">
+                <!-- <input type="file" name="file">-->
+                <input type="file" multiple="multiple" name="files"> 
+                <input type="file" multiple="multiple" name="files"> 
+                <input type="file" multiple="multiple" name="files"> 
+            </td>
+         </tr>
+	
 	<tr>
 		<td colspan="2" align="center">
 			<input type="submit" value="게시글 등록">

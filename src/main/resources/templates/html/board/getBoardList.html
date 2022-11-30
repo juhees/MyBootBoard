@@ -5,7 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>게시글 목록</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="/css/page.css">
+	<link rel="stylesheet" href="/css/getBoardList.css">
 </head>
 
 <body th:align="center">
@@ -21,18 +21,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <hr>
 <!-- 검색 시작 -->
-<form th:action="@{/board/getBoardList}" method="post"><table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="750">
-<tr>
-    <td align="right">
-        <select name="searchCondition">
-        <option value="TITLE">제목</option>
-        <option value="CONTENT">내용</option>
-        </select>
-        <input name="searchKeyword" type="text"/>
-        <input type="submit" value="검색"/>
-    </td>
-</tr>
-</table>
+<form th:action="@{/board/getBoardList}" method="post">
+	<table th:align="center" th:cellpadding="0" th:cellspacing="0" th:width="750">
+		<tr>
+		    <td value="right">
+		        <select name="searchCondition">
+		        <option value="TITLE">제목</option>
+		        <option value="CONTENT">내용</option>
+		        </select>
+		        <input name="searchKeyword" type="text"/>
+		        <input type="submit" value="검색"/>
+		    </td>
+		</tr>
+	</table>
 </form>
 <!-- 검색 종료 -->
 
@@ -57,7 +58,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 </table>
 
-<ul><!-- 페이징 나타나는 부분 -->
+<!-- 페이징 나타나는 부분 -->
+<ul>
    <li th:each="page : ${#numbers.sequence(0, totalPage - 1)}">
        <a th:href="@{/board/getBoardList(page=${pageStat.index},searchKeyword=${search.getSearchKeyword()},
        searchCategory=${search.getSearchCondition()})}"  th:text="${pageStat.index + 1}"></a>

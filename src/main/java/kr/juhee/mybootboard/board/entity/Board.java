@@ -1,23 +1,28 @@
 package kr.juhee.mybootboard.board.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kr.juhee.mybootboard.file.entity.FileEntity;
 import kr.juhee.mybootboard.member.entity.Member;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @Entity
-@ToString(exclude = "member") //Member와의 순환 참조를 해결하기 위해 member 변수 제외
+@ToString(exclude = {"member", "fileList"}) //Member와의 순환 참조를 해결하기 위해 member 변수 제외
 public class Board {
 	
 	public Board() {
@@ -48,11 +53,18 @@ public class Board {
 	@Column(updatable=false)
 	private Long cnt = 0L;
 	
+	@Column
+	private Long fileId;
+	
 	@ManyToOne //다대일관계 매핑
 	@JoinColumn(name="MEMBER_ID", nullable = false, updatable = false) 
 	private Member member; //Member 타입의 member변수 추가
 	//@JoinColumn은 MEMBER_ID칼럼을 통해 외래키를 관리하게 하기위함
 	//nullable은 즉시 로딩을 할 때 외부조인이 아닌 내부조인으로 처리해 성능을 향상시키기 위함
+	
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+	private List<FileEntity>fileList = new ArrayList<>();
+	
 	
 	public void setMember(Member member) {
 		this.member=member;

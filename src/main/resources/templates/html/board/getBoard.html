@@ -44,6 +44,22 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </table>
 </form>	
 
+<h3>이미지 출력</h3>
+      <div style="text-align: center;">
+      	<div th:each="imageFile : ${all} " style="float:left -100px; margin: auto; display: inline-block; ">    
+         <img th:src=" |/board/images/${imageFile.id}|"  width="150" height="150" style="text-align: center;">
+         <p th:text="${imageFile.orgName}"></p>
+     	</div>   
+	</div>
+	
+	<div style="clear: both;">
+      <h4>파일 다운로드</h4>
+      <div th:each="file : ${all}">
+            <a th:href="|/board/attach/${file.id}|" th:text="${file.orgName}"></a>
+      </div>
+      </div>
+	
+
 <div style="margin-top: 10px">
    <form th:action="@{/mail}" method="post">
         <input name="address" placeholder="이메일 주소"> <br>

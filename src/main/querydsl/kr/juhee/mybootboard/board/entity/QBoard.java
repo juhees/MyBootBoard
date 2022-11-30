@@ -30,6 +30,10 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final DateTimePath<java.util.Date> createDate = createDateTime("createDate", java.util.Date.class);
 
+    public final NumberPath<Long> fileId = createNumber("fileId", Long.class);
+
+    public final ListPath<kr.juhee.mybootboard.file.entity.FileEntity, kr.juhee.mybootboard.file.entity.QFileEntity> fileList = this.<kr.juhee.mybootboard.file.entity.FileEntity, kr.juhee.mybootboard.file.entity.QFileEntity>createList("fileList", kr.juhee.mybootboard.file.entity.FileEntity.class, kr.juhee.mybootboard.file.entity.QFileEntity.class, PathInits.DIRECT2);
+
     public final kr.juhee.mybootboard.member.entity.QMember member;
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);

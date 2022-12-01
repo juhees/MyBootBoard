@@ -1,0 +1,48 @@
+body{
+	margin:0 auto;
+}
+
+#wrapper{
+	margin:20px auto 0 auto;
+	padding:20px 40px 0 40px;
+	width:950px;
+	height:640px;
+	background-color:#cccccc;
+	border-radius:10px;
+}
+
+#title{
+	color:#414141;
+}
+
+.input{
+	background-color:transparent;
+	border:none
+}
+
+.gray{
+	background-color:#4a4a4a;
+	color:white;
+	text-align:center;
+	
+}
+
+#list{
+	float:left;
+	background-color:#565656;
+}
+
+#list a{
+	text-decoration:none;
+	color:white;
+	font-size:12pt;
+}
+
+#middle{
+	float:right;
+	border:0;
+	outline:0;
+	background-color:#565656;
+	color:white;
+	font-size:12pt;
+}

@@ -8,21 +8,29 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<link rel="stylesheet" href="/css/getBoardList.css">
 </head>
 
-<body th:align="center">
-<h1>게시글 목록</h1>
+<body th:align="center" >
+<div id="wrapper">
+<h1 id="title">게시글 목록</h1>
 
-<span sec:authorize="isAuthenticated()">
-	<b><font color="green">
-	<span sec:authentication="principal.member.name"></span>
-	</font></b> 님 환영합니다............................................................................................................................
-	<a th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;
-	<a th:href="@{/admin/adminPage}">게시판관리</a>
-</span>
+<div id="welcome">
+	<span sec:authorize="isAuthenticated()">
+		<div id="welcome1">
+			<b><font color="green">
+			<span sec:authentication="principal.member.name"></span>
+			</font></b> 님 환영합니다.
+		</div>
+		<div id="welcome2">
+			<a class="color" th:href="@{/system/logout}">로그아웃</a>&nbsp;&nbsp;&nbsp;
+			<a class="color" th:href="@{/admin/adminPage}">게시판관리</a>
+		</div>
+	</span>
+</div>
 
 <hr>
 <!-- 검색 시작 -->
+<br>
 <form th:action="@{/board/getBoardList}" method="post">
-	<table th:align="center" th:cellpadding="0" th:cellspacing="0" th:width="750">
+	<table th:align="center" th:cellpadding="0" th:cellspacing="0" th:width="800">
 		<tr>
 			<td value="right">
 		    <select name="searchCategory">
@@ -42,24 +50,26 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </form>
 <!-- 검색 종료 -->
 
-<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="750">
+<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="800">
+
 <tr>
-	<th bgcolor="orange" width="50">번호</th>
-	<th bgcolor="orange" width="50">분류</th>
-	<th bgcolor="orange" width="400">제목</th>
-	<th bgcolor="orange" width="100">작성자</th>
-	<th bgcolor="orange" width="100">등록일</th>
-	<th bgcolor="orange" width="50">조회수</th>
+	<th class="gray" width="50">번호</th>
+	<th class="gray" width="50">분류</th>
+	<th class="gray" width="400">제목</th>
+	<th class="gray" width="100">작성자</th>
+	<th class="gray" width="130">등록일</th>
+	<th class="gray" width="70">조회수</th>
 </tr>
  
-<tr th:each="board, state : ${boardList}">
-	<td th:text="${state.count}" th:align="center">
-	<td th:text ="${board.category}"></td>
-	<td><a th:href="@{/board/getBoard(seq=${board.seq})}" th:text="${board.title}"></a></td>
-	<td th:text="${board.member.name}" th:align="center">
-	<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}" th:align="center">
-	<td th:text="${board.cnt}" th:align="center">
-</tr>
+
+	<tr id="table" th:each="board, state : ${boardList}">
+		<td th:text="${state.count}" th:align="center">
+		<td th:text ="${board.category}"></td>
+		<td><a th:href="@{/board/getBoard(seq=${board.seq})}" th:text="${board.title}"></a></td>
+		<td th:text="${board.member.name}" th:align="center">
+		<td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}" th:align="center">
+		<td th:text="${board.cnt}" th:align="center">
+	</tr>
 
 </table>
 
@@ -67,12 +77,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <ul>
    <li th:each="page : ${#numbers.sequence(0, search.getPage() - 1)}">
        <a th:href="@{/board/getBoardList(page=${pageStat.index},searchKeyword=${search.getSearchKeyword()},
-       searchCategory=${search.getSearchCondition()})}"  th:text="${pageStat.index + 1}"></a>
+       searchCategory=${search.getSearchCategory()})}"  th:text="${pageStat.index + 1}"></a>
    </li>
 </ul>
 
 <br>
-<a th:href="@{/board/insertBoard}">게시글 등록</a>
-<a th:href="@{/download}">엑셀 다운로드</a>
+<div id="exceldownload"><a th:href="@{/download}">엑셀 다운로드</a></div>
+<div id="write"><a th:href="@{/board/insertBoard}">게시글 등록</a></div>
+
+
+</div>
 </body>
 </html>

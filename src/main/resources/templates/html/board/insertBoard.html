@@ -4,18 +4,21 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>새 글 등록</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="/css/insertBoard.css">
 </head>
 
 <body th:align="center">
-<h1>게시글 등록</h1>
+<div id="wrapper">
+<h1 id="title">게시글 등록</h1>
+<br>
 <form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data">
 <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0">				
 	<tr>
-		<td bgcolor="orange" th:text="제목" width="80"></td>
-		<td><input name="title" type="text" size="50"></td>
+		<td class="gray" th:text="제목" width="80"></td>
+		<td><input class="input" name="title" type="text" size="110"></td>
 	</tr>
 	<tr>
-		<td bgcolor="orange" th:text="분류" width="80"></td>
+		<td class="gray" th:text="분류" width="80"></td>
 		<td>
 		<select name="category">
 			<option value="" disabled selected>분류 선택</option>
@@ -26,30 +29,30 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	</td>
 	</tr>
 	<tr>
-		<td bgcolor="orange" th:text="작성자"></td>
+		<td class="gray" th:text="작성자"></td>
 		<td><span sec:authentication="principal.member.name"></span></td>
 	</tr>
 	<tr>
-		<td bgcolor="orange" th:text="내용">
-		<td><textarea name="content" cols="50" rows="10"></textarea></td>
+		<td class="gray" th:text="내용">
+		<td><textarea class="input" name="content" cols="100" rows="20"></textarea></td>
 	</tr>
 	
 	<tr><!-- 파일 업로드 -->
-            <td colspan="2" align="center">
+            <td colspan="3" align="center">
                 <!-- <input type="file" name="file">-->
-                <input type="file" multiple="multiple" name="files"> 
-                <input type="file" multiple="multiple" name="files"> 
                 <input type="file" multiple="multiple" name="files"> 
             </td>
          </tr>
-	
-	<tr>
-		<td colspan="2" align="center">
-			<input type="submit" value="게시글 등록">
-		</td>
-	</tr>
 </table>
+<br>
+<br>
+<div id="list">
+	<a th:href="@{/board/getBoardList}">글목록</a>
+</div>
+<input id="middle" type="submit" value="게시글 등록">
 </form>	
-<a th:href="@{/board/getBoardList}">글목록</a>
+
+
+</div>
 </body>
 </html>

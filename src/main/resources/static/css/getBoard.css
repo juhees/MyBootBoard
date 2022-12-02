@@ -23,7 +23,8 @@ body{
 
 .input{
 	background-color:transparent;
-	border:none
+	border:none;
+	width:700px;
 }
 
 

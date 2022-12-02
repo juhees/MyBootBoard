@@ -1,0 +1,16 @@
+body{
+	margin:0 auto;
+}
+
+#wrapper{
+	margin:20px auto 0 auto;
+	padding:20px 40px 0 40px;
+	width:950px;
+	height:500px;
+	background-color:#cccccc;
+	border-radius:10px;
+}
+
+#title{
+	color:#414141;
+}

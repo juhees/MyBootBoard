@@ -38,20 +38,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			<td class="gray" th:text="조회수"></td>
 			<td th:text="${board.cnt}"></td>
 		</tr>
+		<!-- 이미지 출력 -->
 		<tr>
 			<th class="gray">첨부파일</th>
-		 	<td th:each="imageFile : ${all} " style="text-align: center;">
-		 	<p style="float:left -100px; margin: auto; display: inline-block; ">    
+		 	<td id="img" th:each="imageFile : ${all}" style="text-align: center; float:left -100px; margin: auto; display: inline-block; ">
 		   		<img th:src=" |/board/images/${imageFile.id}|"  width="80" height="80" style="text-align: center;">
-		    	<p th:each="file : ${all}">
-		   	 <a th:href="|/board/attach/${file.id}|" th:text="${file.orgName}"></a>
-		 	</p>
+		   	 	<br><a th:href="|/board/attach/${imageFile.id}|" th:text="${imageFile.orgName}"></a>
+		 	</td>
 		</tr>
 	</table>
 </form>
-
-<!-- 이미지 출력 -->
-
 <br>
 
 <!-- 댓글 입력란 -->
@@ -60,21 +56,18 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <button type="submit">등록</button>
  </form>
 
-<!-- reply -->
+<!-- 댓글 리스트 -->
 <table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="800">
          <tr>
             <th class="green" width="110">작성자</th>
             <th class="green" width="590">내용</th>
-            <th class="green" width="50">수정</th>
             <th class="green" width="50">삭제</th>
          </tr>
          <tr th:each="reply, state : ${replyList}">
             <td th:text="${reply.member.name}" th:align="center"></td>
             <td><textarea class="input" name="content" th:text="${reply.content}"  cols="71"></textarea></td>
-            <td th:align="center"><a sec:authorize="hasRole('ROLE_MEMBER')" th:if="${reply.member.id==principal.username}" th:href="@{/board/replyUpdate(replyId=${reply.replyId},content=${content} ,seq=${board.seq})}" >v</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/board/replyUpdate(replyId=${reply.replyId},content=${content} ,seq=${board.seq})}" >v</a></td>
-            <td th:align="center"><a sec:authorize="hasRole('ROLE_MEMBER')" th:if="${reply.member.id==principal.username}" th:href="@{/board/replyDelete(replyId=${reply.replyId}, seq=${board.seq})}" >v</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/board/replyDelete(replyId=${reply.replyId}, seq=${board.seq})}" >v</a></td>
+            <td th:align="center"><a sec:authorize="hasRole('ROLE_MEMBER')" th:if="${board.member.id==member.id}" th:href="@{/board/replyDelete(replyId=${reply.replyId}, seq=${board.seq})}" >삭제</a>
+            <a th:if="${board.member.id==member.id}"  th:href="@{/board/replyDelete(replyId=${reply.replyId}, seq=${board.seq})}" ></a></td>
          </tr>
       </table>
       <ul>
@@ -101,8 +94,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </div>
  
  <div>
-	<input id="middle" type="submit" value="게시글 수정">
-	<a id="write" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/board/deleteBoard(seq=${board.seq})}">글삭제</a>&nbsp;&nbsp;
+	<input id="middle" th:if="${board.member.id==member.id}" type="submit" value="게시글 수정">
+	<a id="write" th:if="${board.member.id==member.id}" th:href="@{/board/deleteBoard(seq=${board.seq})}">글삭제</a>&nbsp;&nbsp;
 	<a id="list" th:href="@{/board/getBoardList}">글목록</a>
 </div>
 </div>

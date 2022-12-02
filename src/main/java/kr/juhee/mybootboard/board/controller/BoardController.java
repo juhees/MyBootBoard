@@ -95,7 +95,7 @@ public class BoardController {
 		//reply
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("searchResult",search);
-		
+		model.addAttribute("member",principal.getMember());
 		return "/board/getBoard";
 	}
 	
